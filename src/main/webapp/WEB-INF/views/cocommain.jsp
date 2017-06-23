@@ -148,9 +148,12 @@ th{
 				alert('error');
 			},
 			success : function(data){
-				categorybox(data);
-				DrawData(data);
-				wholeData = data;
+				console.log(data);
+				var data_list = data["list"];
+				var check_list = data["checklist"];
+				DrawData(data_list);
+				makeCheckbox(check_list);
+				wholeData = data_list;
 			}
 		});
 	}
@@ -159,10 +162,10 @@ th{
 	function DrawData(data){
 		console.log(data);
 		$('#con').html("");
-// 		$('#chbox').html(""};
+		$('#chbox').html("");
 		var html = "<table class='table table-hover text-center table-bordered'><thead><tr><th>브랜드</th><th>상품</th><th>용도</th></tr></thead><tbody>";
 		var tr = "";
-		var tr1 = "";
+		var tr1 = "<form><ul class='list-inline center-block'>";
 		for(var i = 0; i < data.length; i++){
 			tr = tr + "<tr onclick='test(" + data[i].cosno + ")'>" 
 			+ "<td>" + data[i].company + "</td>"
@@ -170,10 +173,32 @@ th{
 			+ "<td>" + data[i].category + "</td></tr>";
 		}
 		$('#con').html(html + tr + "</tbody></table>");
-// 		for(var i = 0; i < data.length; i++){
-// 			tr1 = tr1 + "<form><input type='checkbox'>" + data[i].category;
-// 		}
-// 		$('#chbox').html(tr1 + "</form>");
+	}
+	
+	function makeCheckbox(arr){
+		$('#chbox').empty();
+		for(var i = 0 ; i < arr.length; i++){
+			$('#chbox').append("<input type='checkbox' value="+arr[i]+">"+arr[i]);
+		}
+		var length = $('tbody>tr').length;
+		$('input').change(function(){
+		var click = $(this).val();
+			if(this.checked){
+				for(var i = 0; i < length; i++){
+					var text = $('tbody>tr:nth('+i+')').children('td:nth(2)').text();			
+					if(click == text){
+						$('tbody>tr:nth('+i+')').hide();
+					}
+				}
+			}else{
+				for(var i = 0; i < length; i++){
+					var text = $('tbody>tr:nth('+i+')').children('td:nth(2)').text();			
+					if(click == text){
+						$('tbody>tr:nth('+i+')').show();
+					}
+				}
+			}
+		});
 	}
 	
 	function test(cosno){
@@ -187,6 +212,7 @@ th{
 			}
 		}
 	}
+
 </script>
 
 </head>

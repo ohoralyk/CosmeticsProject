@@ -1,5 +1,6 @@
 package our.project.cosmetic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,11 @@ public class CosmeticServiceImpl implements CosmeticService{
 	}
 
 	@Override
-	public List<CosmeticDTO> getMongoList(String sel_condition, String search_val) {
-		return dao.getMongoList(sel_condition, search_val);
+	public HashMap<String, List<? extends Object>> getMongoList(String sel_condition, String search_val) {
+		HashMap<String,List<? extends Object>> data = new HashMap<String,List<? extends Object>>();
+		data.put("list", dao.getMongoList(sel_condition, search_val));
+		data.put("checklist",dao.getMongoListCategory(search_val));
+		return data;
 	}
 
 	@Override
@@ -120,4 +124,9 @@ public class CosmeticServiceImpl implements CosmeticService{
 	public void increaseSaleViewcount(int seq) {
 		dao.increaseSaleViewcount(seq);
 	}
+	
+//	@Override
+//	public HashMap<String, List<String>> getMongoCategoryList(String sel_condition, String search_val){
+//		return dao.getMongoCategoryList(sel_condition, search_val);
+//	}
 }

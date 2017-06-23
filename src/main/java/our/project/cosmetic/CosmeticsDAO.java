@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+
 
 @Repository("cosmeticsDAO")
 public class CosmeticsDAO<seq> {
@@ -63,12 +66,32 @@ public class CosmeticsDAO<seq> {
 //		}
 //		String val = "/"+search_val+"/";
 		List<CosmeticDTO> test = mongoTemplate.find(new Query(Criteria.where(sel_condition).is(search_val)), CosmeticDTO.class, "cosmetics");
-		for(CosmeticDTO a : test){
-			System.out.println(a.getCosname());
-		}
 		
 		return test;
 	}
+	
+	public List<String> getMongoListCategory(String search_val){
+//		BasicDBObject match = new BasicDBObject();
+//		match. get("category" : search_val);
+//		BasicDBObject match = new BasicDBObject();
+//		match.put("$query", new BasicDBObject("company", search_val));
+//		Criteria crt = new Criteria();
+//		crt.where("company").is(search_val);
+//		Query qry = new Query();
+//		qry.addCriteria(crt);
+		DBObject o1 = new BasicDBObject("company", search_val);
+		return mongoTemplate.getCollection("cosmetics").distinct("category", o1);
+	}
+//	//check box 용
+//	@SuppressWarnings("unchecked")
+//	public HashMap<String, List<String>> getMongoCategoryList(String sel_condition, String search_val){
+//		HashMap<String, List<String>> hash=  new HashMap<String,List<String>>();
+//
+//		hash.put("category", mongoTemplate.getCollection("cosmetics").distinct("category"));
+//		hash.put("company", mongoTemplate.getCollection("cosmetics").distinct("company"));
+//		
+//		return hash;
+//	}
 
 	
 	public List<BoardVO> getAllBoard(){

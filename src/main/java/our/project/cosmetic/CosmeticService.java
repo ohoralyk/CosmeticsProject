@@ -1,5 +1,6 @@
 package our.project.cosmetic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import our.project.cosmetic.BoardVO;
@@ -10,7 +11,7 @@ public interface CosmeticService {
 	public int checkLogin(SignUpVO sv);
 	public SignUpVO getSingUpVO(String mid,String mpw);
 	public SignUpVO getSingUpVO(String mid);
-	public List<CosmeticDTO> getMongoList(String sel_condition, String search_val);
+	public HashMap<String, List<? extends Object>> getMongoList(String sel_condition, String search_val);
 	public List<BoardVO> getAllBoard();
 	public void insertBoard(BoardVO vo);
 	public BoardVO getOneBoard(int seq);
@@ -28,5 +29,6 @@ public interface CosmeticService {
 	public void insertSale(SaleVO sv);
 	public SaleVO getOneSale(int seq);
 	public void increaseSaleViewcount(int seq);
+//	public HashMap<String, List<String>> getMongoCategoryList(String sel_condition, String search_val);
 
 }

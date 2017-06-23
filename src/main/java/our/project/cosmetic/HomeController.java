@@ -26,7 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 	
 	@Autowired
-	CosmeticServiceImpl cosmeticservice;
+	CosmeticServiceImpl cosmeticserviceimpl;
+	
+	@Autowired
+	CosmeticService cosmeticservice;
 	
 	@Autowired
 	ModelAndView mav;
@@ -45,7 +48,7 @@ public class HomeController {
 	
 	@RequestMapping(value="login.cosmetic", method=RequestMethod.POST)
 	public String successLogin(Model model,String mid,String mpw,SignUpVO vo){
-		int result = cosmeticservice.checkLogin(new SignUpVO(mid,mpw));
+		int result = cosmeticserviceimpl.checkLogin(new SignUpVO(mid,mpw));
 		//System.out.println(result);
 		if(result == 0){
 			model.addAttribute("msg", "아이디를 잘못 입력하셨습니다.");
@@ -54,7 +57,7 @@ public class HomeController {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			return "cocomlogin";
 		}else{
-			model.addAttribute("signupVO", cosmeticservice.getSingUpVO(mid, mpw));
+			model.addAttribute("signupVO", cosmeticserviceimpl.getSingUpVO(mid, mpw));
 			return "cocommain";
 		}
 	
@@ -75,25 +78,53 @@ public class HomeController {
 	@RequestMapping(value = "signup.cosmetic" , method=RequestMethod.POST)
 	public String insertSignUp(SignUpVO sv){
 		System.out.println(sv);
-		cosmeticservice.insertSignUp(sv);
+		cosmeticserviceimpl.insertSignUp(sv);
 		return "redirect:/";
 	}
 	
 	@RequestMapping("search.cosmetic")
-	public @ResponseBody List<CosmeticDTO> goSearch(String sel_condition,String search_val){
-		return cosmeticservice.getMongoList(sel_condition, search_val);
+	public @ResponseBody HashMap<String, List<? extends Object>> goSearch(String sel_condition,String search_val){
+		return cosmeticserviceimpl.getMongoList(sel_condition, search_val);
 	}
+	
+	//체크 박스
+//	@RequestMapping("search.test")
+//	public ModelAndView goCategoryBox(@RequestParam("sel_condition") String sel_condition,
+//			@RequestParam("search_val") String search_val){
+//		HashMap<String, List<String>> list = cosmeticserviceimpl.getMongoCategoryList(sel_condition, search_val);
+//		ArrayList<String> category_list = null;
+//		ArrayList<String> company_list = null;
+//		ArrayList<String> checkbox_name = new ArrayList<String>();
+//		if(sel_condition.equals("브랜드")){
+//			checkbox_name.add("카테고리");
+//			mav.addObject("checkbox_name", checkbox_name);
+//			category_list = (ArrayList<String>) list.get("company");
+//		}
+//		else{
+//			checkbox_name.add("카테고리");
+//			checkbox_name.add("브랜드");
+//			mav.addObject("checkbox_name", checkbox_name);
+//			company_list = (ArrayList<String>) list.get("company");
+//			category_list = (ArrayList<String>) list.get("company");
+//		}
+//		mav.addObject("category_list", category_list);
+//		mav.addObject("company_list", company_list);
+//		mav.setViewName("cocomsearch");
+//		
+//		return mav;
+//	}
+	
 		
 	@RequestMapping("board.cosmetic")
 	public ModelAndView Community(@RequestParam(value="pageNum", required=false,
 			defaultValue="1") int pageNum, @RequestParam(value="recordPerPage", required=false,
 			defaultValue="5") int recordPerPage, BoardVO vo) {
-		//List<BoardVO> list = cosmeticservice.getAllBoard();
+		//List<BoardVO> list = cosmeticserviceimpl.getAllBoard();
 		PageVO pv = new PageVO(pageNum, recordPerPage);
 		ArrayList<PageVO> plist = new ArrayList<PageVO>();
 		plist.add(pv);
-		List<BoardVO> list = cosmeticservice.pageBoard(pv);
-		int boardcount = cosmeticservice.countBoard();
+		List<BoardVO> list = cosmeticserviceimpl.pageBoard(pv);
+		int boardcount = cosmeticserviceimpl.countBoard();
 		mav.addObject("boardList", list);
 		mav.addObject("totcount", list.size());
 		mav.addObject("boardcount", boardcount);
@@ -111,15 +142,15 @@ public class HomeController {
 	
 	@RequestMapping(value="write.cosmetic", method=RequestMethod.POST)
 	public String submitBoard(BoardVO vo) {
-		cosmeticservice.insertBoard(vo);
+		cosmeticserviceimpl.insertBoard(vo);
 		return "redirect:/board.cosmetic";
 	}
 	
 	@RequestMapping("detail.cosmetic")
 	public ModelAndView detailBoard(int seq) {
-		cosmeticservice.increaseViewcount(seq);
-		BoardVO vo = cosmeticservice.getOneBoard(seq);
-		SignUpVO sv = cosmeticservice.getSingUpVO(vo.getBwriter());
+		cosmeticserviceimpl.increaseViewcount(seq);
+		BoardVO vo = cosmeticserviceimpl.getOneBoard(seq);
+		SignUpVO sv = cosmeticserviceimpl.getSingUpVO(vo.getBwriter());
 		mav.addObject("board", vo);
 		mav.addObject("writer", sv);
 		mav.setViewName("detailboard");
@@ -135,7 +166,7 @@ public class HomeController {
 	
 	@RequestMapping(value="check.cosmetic", method=RequestMethod.POST)
 	public ModelAndView checkUpdate(@ModelAttribute(value="bvo") BoardVO bvo) {;
-		BoardVO vo = cosmeticservice.getOneBoard(bvo.getBseq());
+		BoardVO vo = cosmeticserviceimpl.getOneBoard(bvo.getBseq());
 		int password = vo.getBpassword();
 		if(password == bvo.getBpassword()){
 			mav.addObject("boardvo", vo);
@@ -156,7 +187,7 @@ public class HomeController {
 	
 	@RequestMapping(value="update.cosmetic", method=RequestMethod.POST)
 	public ModelAndView updateSubmit(BoardVO vo) {
-		cosmeticservice.updateBoard(vo);
+		cosmeticserviceimpl.updateBoard(vo);
 		mav.addObject("board", vo);
 		mav.setViewName("detailboard");
 		return mav;
@@ -164,7 +195,7 @@ public class HomeController {
 	
 	@RequestMapping("delete.cosmetic")
 	public String deleteBoard(int seq) {
-		cosmeticservice.deleteBoard(seq);
+		cosmeticserviceimpl.deleteBoard(seq);
 		return "redirect:/board.cosmetic";
 	}
 	
@@ -175,20 +206,20 @@ public class HomeController {
 		rv.setRid(mid.getMid());	
 		rv.setBseq(bseq);
 		System.out.println(rv);
-		cosmeticservice.insertReply(rv);
+		cosmeticserviceimpl.insertReply(rv);
 	}
 
     // 댓글 목록(veiw(화면)를 리턴)
     @RequestMapping("list.reply")
     public @ResponseBody List<ReplyVO> list(int seq){
-        List<ReplyVO> list = cosmeticservice.getOneReply(seq);
+        List<ReplyVO> list = cosmeticserviceimpl.getOneReply(seq);
         return list;
     }
     
     @RequestMapping("delete.reply")
     public @ResponseBody List<ReplyVO> deleteReply(int rnum, int seq){
     	System.out.println("rnum:seq"+rnum+":::"+seq);
-    	List<ReplyVO> list = cosmeticservice.deleteReply(rnum, seq);
+    	List<ReplyVO> list = cosmeticserviceimpl.deleteReply(rnum, seq);
         return list;
     }
     
@@ -196,12 +227,12 @@ public class HomeController {
 	public ModelAndView SaleBoard(@RequestParam(value="pageNum", required=false,
 			defaultValue="1") int pageNum, @RequestParam(value="recordPerPage", required=false,
 			defaultValue="5") int recordPerPage, SaleVO svo) {
-		//List<BoardVO> list = cosmeticservice.getAllBoard();
+		//List<BoardVO> list = cosmeticserviceimpl.getAllBoard();
 		PageVO pv = new PageVO(pageNum, recordPerPage);
 		ArrayList<PageVO> plist = new ArrayList<PageVO>();
 		plist.add(pv);
-		List<SaleVO> list = cosmeticservice.pageSale(pv);
-		int salecount = cosmeticservice.countSale();
+		List<SaleVO> list = cosmeticserviceimpl.pageSale(pv);
+		int salecount = cosmeticserviceimpl.countSale();
 		mav.addObject("saleList", list);
 		mav.addObject("totcount", list.size());
 		mav.addObject("salecount", salecount);
@@ -219,15 +250,15 @@ public class HomeController {
 	
 	@RequestMapping(value="salewrite.cosmetic", method=RequestMethod.POST)
 	public String salesubmitBoard(SaleVO sv) {
-		cosmeticservice.insertSale(sv);
+		cosmeticserviceimpl.insertSale(sv);
 		return "redirect:/sale.cosmetic";
 	}
 	
 	@RequestMapping("detailsale.cosmetic")
 	public ModelAndView detailsaleBoard(int seq) {
-		cosmeticservice.increaseSaleViewcount(seq);
-		SaleVO svo = cosmeticservice.getOneSale(seq);
-		SignUpVO sv = cosmeticservice.getSingUpVO(svo.getSwriter());
+		cosmeticserviceimpl.increaseSaleViewcount(seq);
+		SaleVO svo = cosmeticserviceimpl.getOneSale(seq);
+		SignUpVO sv = cosmeticserviceimpl.getSingUpVO(svo.getSwriter());
 		mav.addObject("sale", svo);
 		mav.addObject("writer", sv);
 		mav.setViewName("saledetail");
