@@ -135,28 +135,28 @@ th{
 </script>
 
 <!-- 검색 조회 제이쿼리-->
-<script>
-	var wholeData = [];
-	function search() {
-		var sel_condition = $('select option:selected').val();
-		var search_val = $('#searchbar').val();
-		console.log(sel_condition);
-		console.log(search_val);
-		$.ajax({
-			url : "search.cosmetic?sel_condition=" + sel_condition + "&search_val=" + search_val,
-			error : function(){
-				alert('error');
-			},
-			success : function(data){
-				console.log(data);
-				var data_list = data["list"];
-				var check_list = data["checklist"];
-				DrawData(data_list);
-				makeCheckbox(check_list);
-				wholeData = data_list;
-			}
-		});
-	}
+	<script>
+		var wholeData = [];
+		function search() {
+			var sel_condition = $('select option:selected').val();
+			var search_val = $('#searchbar').val();
+			console.log(sel_condition);
+			console.log(search_val);
+			$.ajax({
+				url : "search.cosmetic?sel_condition=" + sel_condition + "&search_val=" + search_val,
+				error : function(){
+					alert('error');
+				},
+				success : function(data){
+					console.log(data);
+					var data_list = data["list"];
+					var check_list = data["checklist"];
+					DrawData(data_list);
+					makeCheckbox(check_list);
+					wholeData = data_list;
+				}
+			});
+		}
 		
 	//검색 버튼 클릭 후 자료박스
 	function DrawData(data){
@@ -175,6 +175,7 @@ th{
 		$('#con').html(html + tr + "</tbody></table>");
 	}
 	
+	//검색 버튼 클릭 후 클릭박스
 	function makeCheckbox(arr){
 		$('#chbox').empty();
 		for(var i = 0 ; i < arr.length; i++){
@@ -185,7 +186,7 @@ th{
 		var click = $(this).val();
 			if(this.checked){
 				for(var i = 0; i < length; i++){
-					var text = $('tbody>tr:nth('+i+')').children('td:nth(2)').text();			
+					var text = $('tbody>tr:nth('+i+')').children('td:nth(2)').text();
 					if(click == text){
 						$('tbody>tr:nth('+i+')').hide();
 					}
@@ -201,6 +202,7 @@ th{
 		});
 	}
 	
+	//검색 된 자료 클릭 후 세부정보박스
 	function test(cosno){
 		for(var i = 0; i < wholeData.length; i++){
 			if(wholeData[i].cosno == cosno){
