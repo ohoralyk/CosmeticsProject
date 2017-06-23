@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http:mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		 <typeAlias alias="signupvo" type="our.project.cosmetic.SignUpVO" />
+		 <typeAlias alias="boardvo" type="our.project.cosmetic.BoardVO" />
+		 <typeAlias alias="replyvo" type="our.project.cosmetic.ReplyVO"/>
+		 <typeAlias alias="salevo" type="our.project.cosmetic.SaleVO"/>
+	</typeAliases>
+	
+</configuration>

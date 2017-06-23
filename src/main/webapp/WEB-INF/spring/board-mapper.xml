@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="allBoard" resultType="our.project.cosmetic.BoardVO">
+      select bseq, btitle, bcontents, bwriter, to_char(btime, 'yy-mm-dd') btime, 
+      bpassword, viewcount from cocomboard
+   	</select>
+	
+	<insert id="insertBoard" parameterType="our.project.cosmetic.BoardVO">
+	 insert into cocomboard values (cocomboard_seq.nextval, #{btitle}, #{bcontents}, #{bwriter}, sysdate, #{bpassword}, 0)<!-- default -->
+	</insert>
+	
+	<select id="count" resultType="int">
+   		select count(*) cnt from cocomboard
+   </select>
+   
+   <select id="oneBoard" parameterType="boardvo" resultType="boardvo">
+      select bseq, btitle, bcontents, bwriter, to_char(btime, 'yy-mm-dd') btime, 
+      bpassword, viewcount from cocomboard
+      where bseq=#{bseq}
+   </select>
+   
+   <select id="countBoard" parameterType="int" resultType="int">
+   		select viewcount from cocomboard
+   		where bseq=#{bseq}
+   </select>
+   
+   <update id="updateViewcount" parameterType="int">
+   		update cocomboard set viewcount = viewcount+1 
+		where bseq = #{seq}
+   </update>
+   
+   <select id="pageBoard" parameterType="our.project.cosmetic.PageVO" resultType="our.project.cosmetic.BoardVO">
+   		select bseq, btitle, bcontents, bwriter, btime, bpassword, viewcount
+		from (select rownum r, bseq, btitle, bcontents, bwriter, btime, bpassword, viewcount
+		from (select * from cocomboard order by btime desc))
+		where r between #{pageNum} and #{recordPerPage}
+   </select>
+
+	<update id="updateBoard" parameterType="our.project.cosmetic.BoardVO">
+		update cocomboard set btitle = #{btitle}, bcontents = #{bcontents} where bseq = #{bseq}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		delete from cocomboard
+		where bseq = #{seq}
+	</delete>
+   
+</mapper>

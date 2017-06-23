@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sale">
+
+	<select id="allSale" resultType="salevo">
+      select sseq, stitle, scontents, swriter, to_char(stime, 'yy-mm-dd') stime, 
+      spassword, sviewcount, simage from saleboard
+   	</select>
+	
+	<insert id="insertSale" parameterType="salevo">
+	 insert into saleboard values (sale_seq.nextval, #{stitle}, #{scontents}, #{swriter}, sysdate, #{spassword}, 0, #{simage})<!-- default -->
+	</insert>
+	
+	<select id="count" resultType="int">
+   		select count(*) cnt from saleboard
+   </select>
+   
+   <select id="oneSale" parameterType="salevo" resultType="salevo">
+      select sseq, stitle, scontents, swriter, to_char(stime, 'yy-mm-dd') stime, 
+      spassword, sviewcount, simage from saleboard
+      where sseq=#{sseq}
+   </select>
+   
+   <select id="countSale" parameterType="int" resultType="int">
+   		select sviewcount from saleboard
+   		where sseq=#{sseq}
+   </select>
+   
+   <update id="updateViewcount" parameterType="int">
+   		update saleboard set sviewcount = sviewcount+1 
+		where sseq = #{seq}
+   </update>
+   
+   <select id="pageSale" parameterType="our.project.cosmetic.PageVO" resultType="salevo">
+   		select sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage
+		from (select rownum r, sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage
+		from (select * from saleboard order by stime desc))
+		where r between #{pageNum} and #{recordPerPage}
+   </select>
+
+	<update id="updateSale" parameterType="our.project.cosmetic.SaleVO">
+		update saleboard set stitle = #{stitle}, scontents = #{scontents}, simage = #{simage} where sseq = #{sseq}
+	</update>
+
+	<delete id="deleteSale" parameterType="int">
+		delete from saleboard
+		where sseq = #{sseq}
+	</delete>
+   
+</mapper>

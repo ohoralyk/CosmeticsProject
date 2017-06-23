@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+	
+	<select id="allReply" resultType="replyvo">
+      select bseq, rnum, rcontents, rid, to_char(rdate, 'yy-mm-dd') rdate from reply
+   	</select>
+	
+	<insert id="insertReply" parameterType="replyvo">
+	 insert into reply values (#{bseq}, reply_seq.nextval, #{rcontents}, #{rid}, sysdate)<!-- default -->
+	</insert>
+
+   <select id="oneReply" parameterType="int" resultType="replyvo">
+      select bseq, rnum, rcontents, rid, to_char(rdate, 'yy-mm-dd') rdate 
+      from reply r, member m
+      where r.rid = m.mid and bseq = #{seq}
+      order by rnum
+   </select>
+
+	<update id="updateReply" parameterType="replyvo">
+		update reply set rcontents = #{rcontents} where rnum = #{rnum}
+	</update>
+
+	<delete id="deleteReply" parameterType="int">
+		delete from reply
+		where rnum = #{rnum}
+	</delete>
+   
+</mapper>
