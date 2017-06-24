@@ -86,34 +86,6 @@ public class HomeController {
 	public @ResponseBody HashMap<String, List<? extends Object>> goSearch(String sel_condition,String search_val){
 		return cosmeticserviceimpl.getMongoList(sel_condition, search_val);
 	}
-	
-	//체크 박스
-//	@RequestMapping("search.test")
-//	public ModelAndView goCategoryBox(@RequestParam("sel_condition") String sel_condition,
-//			@RequestParam("search_val") String search_val){
-//		HashMap<String, List<String>> list = cosmeticserviceimpl.getMongoCategoryList(sel_condition, search_val);
-//		ArrayList<String> category_list = null;
-//		ArrayList<String> company_list = null;
-//		ArrayList<String> checkbox_name = new ArrayList<String>();
-//		if(sel_condition.equals("브랜드")){
-//			checkbox_name.add("카테고리");
-//			mav.addObject("checkbox_name", checkbox_name);
-//			category_list = (ArrayList<String>) list.get("company");
-//		}
-//		else{
-//			checkbox_name.add("카테고리");
-//			checkbox_name.add("브랜드");
-//			mav.addObject("checkbox_name", checkbox_name);
-//			company_list = (ArrayList<String>) list.get("company");
-//			category_list = (ArrayList<String>) list.get("company");
-//		}
-//		mav.addObject("category_list", category_list);
-//		mav.addObject("company_list", company_list);
-//		mav.setViewName("cocomsearch");
-//		
-//		return mav;
-//	}
-	
 		
 	@RequestMapping("board.cosmetic")
 	public ModelAndView Community(@RequestParam(value="pageNum", required=false,

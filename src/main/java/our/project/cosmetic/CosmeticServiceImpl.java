@@ -37,8 +37,9 @@ public class CosmeticServiceImpl implements CosmeticService{
 		HashMap<String,List<? extends Object>> data = new HashMap<String,List<? extends Object>>();
 		data.put("list", dao.getMongoList(sel_condition, search_val));
 		data.put("checklist",dao.getMongoListCategory(search_val));
+		data.put("inglist", dao.getIngredientList());
 		return data;
-	}
+	}	
 
 	@Override
 	public List<BoardVO> getAllBoard() {
@@ -125,8 +126,4 @@ public class CosmeticServiceImpl implements CosmeticService{
 		dao.increaseSaleViewcount(seq);
 	}
 	
-//	@Override
-//	public HashMap<String, List<String>> getMongoCategoryList(String sel_condition, String search_val){
-//		return dao.getMongoCategoryList(sel_condition, search_val);
-//	}
 }

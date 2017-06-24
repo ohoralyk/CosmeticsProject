@@ -75,10 +75,23 @@ public class CosmeticsDAO<seq> {
 	//checkbox을 위한 출력값 (수정해야 할 부분)
 	public List<String> getMongoListCategory(String search_val){
 		System.out.println(search_val);
-		String val = '*'+search_val+'*';
-		DBObject o1 = new BasicDBObject("company", val);
+//		BasicQuery query = new BasicQuery("{\"company\": {$regex : '" + search_val + "'}}" );
+//		BasicQuery query = new BasicQuery("{$regex : '" + search_val + "'}");
+		DBObject o1 = new BasicDBObject("company", search_val);
 		return mongoTemplate.getCollection("cosmetics").distinct("category", o1);
 	}
+	
+	public List<IngredientDTO> getIngredientList() {		
+//		List<IngredientDTO> list = mongoTemplate.getCollection("ingredient").distinct("useful");
+		List<IngredientDTO> list = mongoTemplate.findAll(IngredientDTO.class, "ingredient");
+			
+		return list;
+	}
+	
+//	public List<IngredientDTO> getIngredientList1() {		
+//		List<IngredientDTO> list = mongoTemplate.getCollection("ingredient").distinct("ingname");
+//		return list;
+//	}
 	
 	public List<BoardVO> getAllBoard(){
 		return session.selectList("board.allBoard");
@@ -160,4 +173,5 @@ public class CosmeticsDAO<seq> {
 	public void increaseSaleViewcount(int seq) {
 		session.update("sale.updateViewcount", seq);
 	}
+
 }

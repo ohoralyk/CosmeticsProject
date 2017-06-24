@@ -29,6 +29,5 @@ public interface CosmeticService {
 	public void insertSale(SaleVO sv);
 	public SaleVO getOneSale(int seq);
 	public void increaseSaleViewcount(int seq);
-//	public HashMap<String, List<String>> getMongoCategoryList(String sel_condition, String search_val);
 
 }

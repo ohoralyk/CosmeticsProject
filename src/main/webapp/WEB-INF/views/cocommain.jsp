@@ -137,6 +137,7 @@ th{
 <!-- 검색 조회 제이쿼리-->
 	<script>
 		var wholeData = [];
+		//검색 / 클릭 / 클릭 후 모든 관리
 		function search() {
 			var sel_condition = $('select option:selected').val();
 			var search_val = $('#searchbar').val();
@@ -151,6 +152,7 @@ th{
 					console.log(data);
 					var data_list = data["list"];
 					var check_list = data["checklist"];
+					var ingcheck_list = data["inglist"];
 					DrawData(data_list);
 					makeCheckbox(check_list);
 					wholeData = data_list;
@@ -184,6 +186,7 @@ th{
 		var length = $('tbody>tr').length;
 		$('input').change(function(){
 		var click = $(this).val();
+		console.log(click);
 			if(this.checked){
 				for(var i = 0; i < length; i++){
 					var text = $('tbody>tr:nth('+i+')').children('td:nth(2)').text();
@@ -201,6 +204,19 @@ th{
 			}
 		});
 	}
+	
+	//스킨 타입 거르기 중.... ㅠㅠ
+// 	function ingCheckbox(list) {
+// 		console.log(list)
+// 		$('input').change(function(){
+// 			var click = $(this).find("Object").each(function() {
+				
+// 				$("useful").
+// 			});
+// 		})
+// 	}
+	
+	
 	
 	//검색 된 자료 클릭 후 세부정보박스
 	function test(cosno){
@@ -260,6 +276,13 @@ th{
 	</div>
 
 <!-- 검색 결과물 -->
+<div id="ingbox">
+	<ul>
+		<li><input type="checkbox" value="건성">건성</li>
+		<li><input type="checkbox" value="지성">지성</li>
+		<li><input type="checkbox" value="민감성">민감성</li>
+	</ul>
+</div>
 <div id="chbox"></div>
 <div id="con"></div>
 
