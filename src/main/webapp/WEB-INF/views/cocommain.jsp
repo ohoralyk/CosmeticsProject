@@ -12,6 +12,25 @@
 <!-- 제이쿼리 불러오기  -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<!-- 따온 부트스트랩 자료 넣기 -->
+<script src="resources/js/agency.js"></script>
+<!-- <script src="resources/js/agency.min.js"></script> -->
+<script src="resources/js/contact_me.js"></script>
+<script src="resources/js/jqBootstrapValidation.js"></script>
+
+<!-- 부트스트랩 코어 -->
+<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 커스텀 폰트 -->
+<link href="resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+
+<!-- theme css -->
+<link href="resources/css/agency.min.css" rel="stylesheet">
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -242,7 +261,7 @@ th {
 				console.log(response);
 				var i = 1;
 				$(response).find('data').each(function(){
-					if (i <= 6) {
+					if (i <= 12) {
 						var day = $(this).find('day').text();
 						var daytxt = "오늘";
 						var hour = $(this).find('hour').text();
@@ -447,49 +466,58 @@ th {
 </script>
 
 </head>
-<body class="container">
-
-	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix">
+<body id="page-top" class="index">
+	<!-- 맨위 로그인 밑 게시판 창 -->
+	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix-top">
         <div class="container">
 <!--             Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle navigation</span>Menu<i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Welcom CoCom</a>
+                <a class="navbar-brand page-scroll" href="#page-top">CoCom</a>
             </div>
-<!--             Collect the nav links, forms, and other content for toggling -->
+			<!--  Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                 	<c:if test="${sessionScope.signupVO.mid == null}">
-                    <li class="hidden active">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="signup.cosmetic">Sign Up</a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="login.cosmetic">Login</a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
-                    </li>
+	                    <li class="hidden active">
+	                        <a href="#page-top"></a>
+	                    </li>
+	                     <li class="">
+	                        <a class="page-scroll" href="#weather">weather/map</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="signup.cosmetic">Sign Up</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="login.cosmetic">Login</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="board.cosmetic">자유게시판</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="sale.cosmetic">중고게시판</a>
+	                    </li>
                     </c:if>
                     <c:if test="${sessionScope.signupVO.mid != null}">
-                    <li class="">
-                    	<a class="page-scroll">${signupVO.mid } 님 어서오세요.</a>
-                    <li class="">
-                        <a class="page-scroll" href="logout.cosmetic">LogOut</a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
-                    </li>
-                    <li class="">
-                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
-                    </li>
+	                     <li class="hidden active">
+	                        <a href="#page-top"></a>
+	                    </li>
+	                     <li class="">
+	                        <a class="page-scroll" href="#weather">weather/map</a>
+	                    </li>
+	                    <li class="">
+	                    	<a class="page-scroll">${signupVO.mid } 님 어서오세요.</a>
+	                    <li class="">
+	                        <a class="page-scroll" href="logout.cosmetic">LogOut</a>
+	                    </li>
+	                    <li class="">
+	                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
+	                    </li>
+	                    <li class="">
+	                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
+	                    </li>
 					</c:if>
                 </ul>
             </div>
@@ -497,50 +525,58 @@ th {
         </div>
 <!--         /.container-fluid -->
     </nav>
+    
+    <header>
+        <div class="container">
+            <div class="intro-text">
+<!-- 				<div class="row"> -->
+<!-- 					<img class="center-block" alt="이미지가 없습니다." src="resources/images/Cocom.jpg" class="logo"> -->
+<!-- 				</div> -->
+				<div class="intro-lead-in">Co Com</div>
+                <div class="intro-heading">Cosmetics Combination</div>
+				<a href="#search" class="page-scroll btn btn-xl">Cosmetics Search</a>
+            </div>
+        </div>
+   </header>
+		<!-- 검색 -->
+		<div class="row">
+			<div class="col-md-2">
+				<select class="form-control" id="sel1">
+					<option>브랜드</option>
+					<!-- <option>용도</option> -->
+					<!--  <option>성분</option>-->
+					<option>제품명</option>
+				</select>
+			</div>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="searchbar">
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-success btn-block"
+					onclick="search()" id="search" style="height: 34px;">검색</button>
+			</div>
+		</div>
+    
+    
 
-	<nav class="navbar">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav navbar-right">
-				<c:if test="${sessionScope.signupVO.mid == null}">
-					<li><a href="signup.cosmetic"><span
-							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a href="login.cosmetic"><span
-							class="glyphicon glyphicon-log-in"></span> </a></li>
-					<li><a href="board.cosmetic">자유게시판</a></li>
-					<li><a href="sale.cosmetic">중고게시판</a></li>
-				</c:if>
-				<c:if test="${sessionScope.signupVO.mid != null}">
-					<li><a>${signupVO.mid } 님 어서오세요.</a></li>
-					<li><a href='logout.cosmetic'>로그아웃</a></li>
-					<li><a href="board.cosmetic">자유게시판</a></li>
-					<li><a href="sale.cosmetic">중고게시판</a></li>
-				</c:if>
-			</ul>
-		</div>
-	</nav>
-	<div class="row">
-		<img class="center-block" alt="이미지가 없습니다."
-			src="resources/images/Cocom.jpg" class="logo">
-	</div>
-
-	<!-- 검색 -->
-	<div class="row">
-		<div class="col-md-2">
-			<select class="form-control" id="sel1">
-				<option>브랜드</option>
-				<!-- 				<option>용도</option> -->
-				<!--  <option>성분</option>-->
-				<option>제품명</option>
-			</select>
-		</div>
-		<div class="col-md-8">
-			<input type="text" class="form-control" id="searchbar">
-		</div>
-		<div class="col-md-2">
-			<button type="button" class="btn btn-success btn-block"
-				onclick="search()" id="search" style="height: 34px;">검색</button>
-		</div>
-	</div>
+<!-- 검색 -->
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-md-2"> -->
+<!-- 			<select class="form-control" id="sel1"> -->
+<!-- 				<option>브랜드</option> -->
+<!-- 								<option>용도</option> -->
+<!-- 				 <option>성분</option> -->
+<!-- 				<option>제품명</option> -->
+<!-- 			</select> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-8"> -->
+<!-- 			<input type="text" class="form-control" id="searchbar"> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-2"> -->
+<!-- 			<button type="button" class="btn btn-success btn-block" -->
+<!-- 				onclick="search()" id="search" style="height: 34px;">검색</button> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	<!-- 검색 결과물 -->
 	<div class="container">
@@ -587,7 +623,7 @@ th {
 				<br>
 				<ul class="list-inline center-block">
 					<%
-						for (int k = 1; k <= 6; k++) {
+						for (int k = 1; k <= 12; k++) {
 					%>
 					<li id="weather<%=k%>" class="text-center center-block"><a
 						href="#"></a></li>
