@@ -62,9 +62,6 @@ public class CosmeticsDAO<seq> {
 		}else if(sel_condition.equals("제품명")){
 			sel_condition = "cosname";
 		}
-//		else if(sel_condition.equals("종류")){
-//			sel_condition = "category";
-//		}
 //		String val = "*"+search_val+"*";
 //		List<CosmeticDTO> test = mongoTemplate.find(new Query(Criteria.where(sel_condition).regex(val), CosmeticDTO.class, "cosmetics");
 		BasicQuery query = new BasicQuery("{\"" + sel_condition + "\": {$regex : '" + search_val + "'}}" );
@@ -87,11 +84,6 @@ public class CosmeticsDAO<seq> {
 			
 		return list;
 	}
-	
-//	public List<IngredientDTO> getIngredientList1() {		
-//		List<IngredientDTO> list = mongoTemplate.getCollection("ingredient").distinct("ingname");
-//		return list;
-//	}
 	
 	public List<BoardVO> getAllBoard(){
 		return session.selectList("board.allBoard");
@@ -172,6 +164,18 @@ public class CosmeticsDAO<seq> {
 	
 	public void increaseSaleViewcount(int seq) {
 		session.update("sale.updateViewcount", seq);
+	}
+	
+	public SaleVO updateSale(SaleVO sv) {
+		return session.selectOne("sale.updateSale", sv);
+	}
+	
+	public SaleVO updateSaleNoimage(SaleVO sv) {
+		return session.selectOne("sale.updateSaleNoimage", sv);
+	}
+
+	public void deleteSale(int seq) {
+		session.selectOne("sale.deleteSale", seq);
 	}
 
 }

@@ -1,8 +1,10 @@
 package our.project.cosmetic;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -212,6 +215,7 @@ public class HomeController {
 		return mav;
 	}
     
+    //중고게시판 글쓰기
     @RequestMapping(value="salewrite.cosmetic", method=RequestMethod.GET)
 	public String salewriteBoard(HttpSession session) {
 		if(session.getAttribute("signupVO") == null){
@@ -220,12 +224,53 @@ public class HomeController {
 		return "salewrite";
 	}
 	
-	@RequestMapping(value="salewrite.cosmetic", method=RequestMethod.POST)
-	public String salesubmitBoard(SaleVO sv) {
-		cosmeticserviceimpl.insertSale(sv);
+    //중고게시판 사진 업로드
+    @RequestMapping(value="salewrite.cosmetic", method=RequestMethod.POST)
+	public String salesubmitBoard(SaleVO sv, @RequestParam("imagefile") MultipartFile file) {
+		
+		/* file uplaod */
+		if (!file.isEmpty()) {
+			
+			try {
+				byte[] bytes = file.getBytes();
+
+				// Creating the directory to store file
+				//String rootPath = System.getProperty("catalina.home");
+				File dir = new File("C:\\project\\CosmeticsProject\\src\\main\\webapp\\resources\\images\\saleboard"); //이미 생성되어있음.
+
+				// 업로드파일 저장
+				//File serverFile = new File(dir.getAbsolutePath());
+				
+				String uid = UUID.randomUUID().toString(); //물리 파일명
+				String fName = file.getOriginalFilename();
+				sv.setSimage(fName);
+				sv.setPimage(uid);
+				
+				File saveFile = new File(dir + File.separator + uid);
+				file.transferTo(saveFile);
+				
+				
+
+				//logger.info("Server File Location="
+				//		+ serverFile.getAbsolutePath());
+
+				//return "You successfully uploaded file=" + serverFile.getAbsolutePath();
+			} catch (Exception e) {
+				//return "You failed to upload " + name + " => " + e.getMessage();
+				//System.out.print("error");
+				e.printStackTrace();
+			}
+		} else {
+			return "You failed to upload  because the file was empty.";
+		}
+		
+		System.out.println(sv);
+		/* DB Insert  */
+		cosmeticservice.insertSale(sv);
 		return "redirect:/sale.cosmetic";
 	}
 	
+    //중고게시판 상세정보
 	@RequestMapping("detailsale.cosmetic")
 	public ModelAndView detailsaleBoard(int seq) {
 		cosmeticserviceimpl.increaseSaleViewcount(seq);
@@ -235,6 +280,99 @@ public class HomeController {
 		mav.addObject("writer", sv);
 		mav.setViewName("saledetail");
 		return mav;
+	}
+	
+	//중고게시판 수정
+	@RequestMapping(value="updatesale.cosmetic", method=RequestMethod.GET)
+	public ModelAndView updateSale(String seq) {
+		mav.addObject("seq", seq);
+		mav.setViewName("updatesale");
+		return mav;
+	}
+
+	//중고게시판 수정 사진업로드
+	@RequestMapping(value="updatesale.cosmetic", method=RequestMethod.POST)
+	public String saleupdateSubmit(SaleVO sv, @RequestParam("updateimagefile") MultipartFile file) {
+		
+		/* file uplaod */
+		if (!file.isEmpty()) {
+			
+			try {
+				byte[] bytes = file.getBytes();
+
+				// Creating the directory to store file
+				//String rootPath = System.getProperty("catalina.home");
+				File dir = new File("C:\\project\\CosmeticsProject\\src\\main\\webapp\\resources\\images\\saleboard"); //이미 생성되어있음.
+
+				// 업로드파일 저장
+				//File serverFile = new File(dir.getAbsolutePath());
+				
+				String uid = UUID.randomUUID().toString(); //물리 파일명
+				String fName = file.getOriginalFilename();
+				sv.setSimage(fName);
+				sv.setPimage(uid);
+				
+				File saveFile = new File(dir + File.separator + uid);
+				file.transferTo(saveFile);
+				
+				
+
+				//logger.info("Server File Location="
+				//		+ serverFile.getAbsolutePath());
+
+				//return "You successfully uploaded file=" + serverFile.getAbsolutePath();
+			} catch (Exception e) {
+				//return "You failed to upload " + name + " => " + e.getMessage();
+				//System.out.print("error");
+				e.printStackTrace();
+			}
+			cosmeticservice.updateSale(sv);
+		} else {
+			cosmeticservice.updateSaleNoimage(sv);
+		}
+		
+		System.out.println(sv);
+		/* DB Insert  */
+		return "redirect:/sale.cosmetic";
+	}
+	
+	/*
+	@RequestMapping(value="updatesale.cosmetic", method=RequestMethod.POST)
+	public ModelAndView updateSubmit(SaleVO sv) {
+		cosmeticservice.updateSale(sv);
+		mav.addObject("sale", sv);
+		mav.setViewName("saledetail");
+		return mav;
+	}*/
+	
+	
+	@RequestMapping(value="checkSale.cosmetic", method=RequestMethod.GET)
+	public ModelAndView checkSale(HttpSession session, int seq) {
+		mav.addObject("seq", seq);
+		mav.setViewName("checkSalepassword");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="checkSale.cosmetic", method=RequestMethod.POST)
+	public ModelAndView checkSaleUpdate(@ModelAttribute(value="svo") SaleVO svo) {;
+		SaleVO sv = cosmeticservice.getOneSale(svo.getSseq());
+		int password = sv.getSpassword();
+		if(password == svo.getSpassword()){
+			mav.addObject("salevo", sv);
+			mav.setViewName("saleupdate");			
+		}
+		else{
+			mav.addObject("msg","잘못된 비밀번호입니다.");
+		}
+		return mav;
+	}
+	
+	//중고게시판 글삭제
+	@RequestMapping("deletesale.cosmetic")
+	public String deleteSale(int seq) {
+		cosmeticservice.deleteSale(seq);
+		return "redirect:/sale.cosmetic";
 	}
 
 }

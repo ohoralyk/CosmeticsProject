@@ -126,4 +126,19 @@ public class CosmeticServiceImpl implements CosmeticService{
 		dao.increaseSaleViewcount(seq);
 	}
 	
+	@Override
+	public SaleVO updateSale(SaleVO sv) {
+		return dao.updateSale(sv);
+	}
+
+	@Override
+	public void deleteSale(int seq) {
+		dao.deleteSale(seq);
+	}
+
+	@Override
+	public SaleVO updateSaleNoimage(SaleVO sv) {
+		return dao.updateSaleNoimage(sv);
+	}
+	
 }

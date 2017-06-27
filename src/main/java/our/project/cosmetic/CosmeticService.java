@@ -29,5 +29,7 @@ public interface CosmeticService {
 	public void insertSale(SaleVO sv);
 	public SaleVO getOneSale(int seq);
 	public void increaseSaleViewcount(int seq);
-
+	public SaleVO updateSale(SaleVO sv);
+	public SaleVO updateSaleNoimage(SaleVO sv);
+	public void deleteSale(int seq);
 }

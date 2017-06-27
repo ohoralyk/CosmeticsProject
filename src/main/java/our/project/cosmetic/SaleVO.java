@@ -11,7 +11,9 @@ public class SaleVO {
 	private int spassword;
 	private int sviewcount;
 	MultipartFile imagefile;
-	private String simage;
+	
+	private String simage; //파일을 첨부할때의 원래 파일 명
+	private String pimage; //하드디스크에 저장된 물리 파일 명
 	
 	public SaleVO() {}
 
@@ -25,6 +27,7 @@ public class SaleVO {
 		this.spassword = spassword;
 		this.sviewcount = sviewcount;
 		this.simage = simage;
+		this.pimage = pimage;
 	}
 	
 	public MultipartFile getImagefile() {
@@ -84,11 +87,21 @@ public class SaleVO {
 		this.simage = simage;
 	}
 
+	public String getPimage() {
+		return pimage;
+	}
+	
+	public void setPimage(String pimage) {
+		this.pimage = pimage;
+	}
+
 	@Override
 	public String toString() {
 		return "SaleVO [sseq=" + sseq + ", stitle=" + stitle + ", scontents=" + scontents + ", swriter=" + swriter
-				+ ", stime=" + stime + ", spassword=" + spassword + ", sviewcount=" + sviewcount + ", simage=" + simage
-				+ "]";
+				+ ", stime=" + stime + ", spassword=" + spassword + ", sviewcount=" + sviewcount + ", imagefile="
+				+ imagefile + ", simage=" + simage + ", Pimage=" + pimage + "]";
 	}
+
+
 
 }

@@ -215,6 +215,9 @@ th {
 	text-align: center;
 }
 
+#chbox{
+	margin-top: 1%;
+}
 #con {
 	margin-top: 1%;
 }
@@ -222,10 +225,12 @@ th {
 
 <!-- 날씨 제이쿼리 -->
 <script type="text/javascript">
-	// 	navigator.geolocation.getCurrentPosition(function(pos) {
-	// 	    var latitude = pos.coords.latitude;
-	// 	    var longitude = pos.coords.longitude;
-	// 	});
+// 	navigator.geolocation.getCurrentPosition(function(pos) {
+// 	    var latitude = pos.coords.latitude;
+// 	    var longitude = pos.coords.longitude;
+// 	});
+// 	var gridx = latitude;
+// 	var gridy = longitude;
 	var gridx = 60;
 	var gridy = 106;
 	$(document).ready(function() {
@@ -291,7 +296,7 @@ th {
 <!-- 검색 조회 제이쿼리-->
 <script>
 	var wholeData = [];
-	var ingredientlist = [];
+// 	var ingredientlist = [];
 	//검색 / 클릭 / 클릭 후 모든 관리
 	function search() {
 		var sel_condition = $('select option:selected').val();
@@ -312,8 +317,9 @@ th {
 				DrawData(data_list);
 				makeCheckbox(check_list);
 				wholeData = data_list;
-				ingredientlist = data_list;
-				ingCheckbox(ingcheck_list);
+// 				ingredientlist = data_list;
+// 				ingCheckbox(ingcheck_list);
+				$('#chbox').attr('class', 'alert alert-info');
 			}
 		});
 	}
@@ -323,7 +329,7 @@ th {
 // 		console.log(data[0].ingredient);
 		$('#con').html("");
 		$('#chbox').html("");
-		var html = "<table class='table table-hover text-center table-bordered'><thead><tr><th>브랜드</th><th>상품</th><th>용도</th></tr></thead><tbody>";
+		var html = "<table class='table table-striped table-hover text-center table-bordered'><thead><tr><th>브랜드</th><th>상품</th><th>용도</th></tr></thead><tbody>";
 		var tr = "";
 		var tr1 = "<form><ul class='list-inline center-block'>";
 		for (var i = 0; i < data.length; i++) {
@@ -354,6 +360,8 @@ th {
 								$('tbody>tr:nth(' + i + ')').show();
 							} else if (click != text) {
 								$('tbody>tr:nth(' + i + ')').hide();
+							}  else {
+								$('tbody>tr:nth(' + i + ')').show();
 							}
 						}
 					} else {
@@ -362,64 +370,67 @@ th {
 							if (click != text) {
 								$('tbody>tr:nth(' + i + ')').show();
 							} else if (click == text) {
+								$('tbody>tr:nth(' + i + ')').show();
+							} else {
 								$('tbody>tr:nth(' + i + ')').hide();
 							}
+							
 						}
 					}
 				});
 	}
 
 	//스킨 타입 거르기 중.... ㅠㅠ
-	function ingCheckbox(list) {
-		console.log(list);
-		var length = list.length;
-		var ingname = "";
-		$('input').change(function() {
-			var ingclick = $(this).val();
-			if (this.checked) {
-				var j = 0;
-				for (var i = 0; i < length; i++) {
-					var ingtext = list[i].useful;
-					var ingcosmetic = [];
-					var ingcos = "";
-						ingname = list[i].ingname;
-					if (ingclick == ingtext) {
-						for (var k = 0; k < ingredientlist.length; k++) {
-							ingcosmetic = ingredientlist[k].ingredient;
-							ingcos = ingcosmetic[k];
-							console.log(ingcos);
-							console.log(ingname);
-							if (ingcos == ingname) {
-								//여기가 문제임
-								$('tbody>tr:nth(' + importnum + ')').show();
-							} else if (ingcosmetic != ingname) {
-								$('tbody>tr:nth(' + importnum + ')').hide();
-							}
-						}
-					}
-					j++;
-				}
-			} else {
-				var j = 0;
-				for (var i = 0; i < length; i++) {
-					var ingtext = list[i].useful
-					var ingcosmetic = [];
-					if (ingclick == ingtext) {
-						ingname = list.ingname;
-						for (var k = 0; k < ingredientlist.length; k++) {
-							ingcosmetic = ingredientlist[k].ingredient;
-							if (ingcosmetic == ingname) {
-								$('tbody>tr:nth(' + importnum + ')').show();
-							} else if (ingcosmetic != ingname) {
-								$('tbody>tr:nth(' + importnum + ')').hide();
-							}
-						}
-					}
-					j++;
-				}
-			}
-		});
-	}
+// 	function ingCheckbox(list) {
+// 		console.log(list);
+// 		var length = list.length;
+// 		var ingname = "";
+// 		$('input').change(function() {
+// 			var ingclick = $(this).val();
+// 			if (this.checked) {
+// 				var j = 0;
+// 				for (var i = 0; i < length; i++) {
+// 					var inguseful = list[i].useful;
+// 					var ingcosmetic = [];
+// 					var ingcos = "";
+// 						ingname = list[i].ingname;
+// 					if (ingclick == inguseful) {
+// 						for (var k = 0; k < ingredientlist.length; k++) {
+// 							ingcosmetic = ingredientlist[k].ingredient;
+// 							ingcos = ingcosmetic[k];
+// 							console.log(ingcos);
+// 							console.log(ingname);
+// 							if (ingname == ingcos) {
+// 								//여기가 문제임
+// 								$('tbody>tr:nth(' + k + ')').show();
+// 							} else if (ingname != ingcos) {
+// 								$('tbody>tr:nth(' + k + ')').hide();
+// 							}
+// 						}
+// 					}
+// 					j++;
+// 				}
+// 			} else {
+// 				var j = 0;
+// 				for (var i = 0; i < length; i++) {
+// 					var inguseful = list[i].useful
+// 					var ingcosmetic = [];
+// 					if (ingclick == inguseful) {
+// 						ingname = list.ingname;
+// 						for (var k = 0; k < ingredientlist.length; k++) {
+// 							ingcosmetic = ingredientlist[k].ingredient;
+// 							if (ingname != ingcos) {
+// 								$('tbody>tr:nth(' + k + ')').show();
+// 							} else if (ingname == ingcos) {
+// 								$('tbody>tr:nth(' + k + ')').hide();
+// 							}
+// 						}
+// 					}
+// 					j++;
+// 				}
+// 			}
+// 		});
+// 	}
 
 	//검색 된 자료 클릭 후 세부정보박스
 	function test(cosno) {
@@ -437,6 +448,56 @@ th {
 
 </head>
 <body class="container">
+
+	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix">
+        <div class="container">
+<!--             Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Welcom CoCom</a>
+            </div>
+<!--             Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                	<c:if test="${sessionScope.signupVO.mid == null}">
+                    <li class="hidden active">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="signup.cosmetic">Sign Up</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="login.cosmetic">Login</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
+                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.signupVO.mid != null}">
+                    <li class="">
+                    	<a class="page-scroll">${signupVO.mid } 님 어서오세요.</a>
+                    <li class="">
+                        <a class="page-scroll" href="logout.cosmetic">LogOut</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
+                    </li>
+					</c:if>
+                </ul>
+            </div>
+<!--             /.navbar-collapse -->
+        </div>
+<!--         /.container-fluid -->
+    </nav>
+
 	<nav class="navbar">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-right">
@@ -444,7 +505,7 @@ th {
 					<li><a href="signup.cosmetic"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li><a href="login.cosmetic"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+							class="glyphicon glyphicon-log-in"></span> </a></li>
 					<li><a href="board.cosmetic">자유게시판</a></li>
 					<li><a href="sale.cosmetic">중고게시판</a></li>
 				</c:if>
@@ -482,16 +543,18 @@ th {
 	</div>
 
 	<!-- 검색 결과물 -->
-	<div id="ingbox">
-		<ul>
-			<li><input type="checkbox" value="건성" id="dry">건성</li>
-			<li><input type="checkbox" value="지성" id="oil">지성</li>
-			<li><input type="checkbox" value="민감성" id="senciti">민감성</li>
-		</ul>
-	</div>
-	<div id="chbox"></div>
-	<div id="con"></div>
+	<div class="container">
+<!-- 	<div id="ingbox"> -->
+<!-- 		<ul> -->
+<!-- 			<li><input type="checkbox" value="건성" id="dry">건성</li> -->
+<!-- 			<li><input type="checkbox" value="지성" id="oil">지성</li> -->
+<!-- 			<li><input type="checkbox" value="민감성" id="senciti">민감성</li> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
 
+		<div id="chbox"> </div>
+		<div id="con"></div>
+	</div>
 	<!--  Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
