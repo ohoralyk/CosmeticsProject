@@ -41,7 +41,7 @@
    </select>
 
 	<update id="updateSale" parameterType="our.project.cosmetic.SaleVO">
-		update saleboard set stitle = #{stitle}, scontents = #{scontents}, simage = #{simage} where sseq = #{sseq}
+		update saleboard set stitle = #{stitle}, scontents = #{scontents}, simage = #{simage}, pimage = #{pimage} where sseq = #{sseq}
 	</update>
 
 	<delete id="deleteSale" parameterType="int">
