@@ -113,7 +113,7 @@ public class HomeController {
 		int boardcount = cosmeticserviceimpl.countBoard();
 		mav.addObject("boardList", list);
 		mav.addObject("totcount", list.size());
-		mav.addObject("boarTdcount", boardcount);
+		mav.addObject("boardcount", boardcount);
 		mav.setViewName("cocomboard");
 		return mav;
 	}
