@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CoCom 회원가입</title>
-<script src="resources/jquery-3.1.1.min.js"></script>
+<script src="resources/js/jquery-3.1.1.min.js"></script>
 
 <!-- 제이쿼리 불러오기  -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -28,20 +28,61 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
 
 <!-- theme css -->
-<link href="resources/css/agency.min.css" rel="stylesheet">
+<link href="resources/css/agency.css" rel="stylesheet">
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 </head>
-<body>
-<div class="container">
-	<div class="row">
-		<h2>CoCom 회원가입</h2>
-	</div>
-	<div>${msg}</div>
-    <form id="defaultForm" method="post" class="form-horizontal" action="signup.cosmetic">
+<body id="page-top" class="index">
+
+	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix-top">
+	        <div class="container">
+	<!--             Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header page-scroll">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	                    <span class="sr-only">Toggle navigation</span>Menu<i class="fa fa-bars"></i>
+	                </button>
+	                <a class="navbar-brand page-scroll" href="/cosmetic/">CoCom</a>
+	            </div>
+				<!--  Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                <ul class="nav navbar-nav navbar-right">
+		                    <li class="hidden active">
+		                        <a href="/cosmetic/#page-top"></a>
+		                    </li>
+		                    <li class="">
+	                        <a href="login.cosmetic">Login</a>
+	                    	</li>
+		                    <li class="">
+		                        <a href="board.cosmetic">자유게시판</a>
+		                    </li>
+		                    <li class="">
+		                        <a href="sale.cosmetic">중고게시판</a>
+		                    </li>
+	                </ul>
+	            </div>
+	<!--             /.navbar-collapse -->
+	        </div>
+	<!--         /.container-fluid -->
+	    </nav>
+
+
+
+<section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">CoCom 회원가입</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+          	</div>
+         	<div class="row">
+         	<div>${msg}</div>
+    		<form id="defaultForm" method="post" class="form-horizontal" action="signup.cosmetic">
                         <div class="form-group">
                             <label class="col-lg-3 control-label" >아이디</label>
                             <div class="col-lg-5">
@@ -179,7 +220,9 @@
                             </div>
                         </div>
                     </form>
-</div>
+        	</div>   
+        </div>
+    </section>
 <script type="text/javascript">
 $('#cancel').on('click',function(){
 	location.href="/cosmetic/";

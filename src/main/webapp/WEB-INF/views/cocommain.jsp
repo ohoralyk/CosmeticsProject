@@ -29,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
 
 <!-- theme css -->
-<link href="resources/css/agency.min.css" rel="stylesheet">
+<link href="resources/css/agency.css" rel="stylesheet">
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
@@ -456,9 +456,9 @@ th {
 		for (var i = 0; i < wholeData.length; i++) {
 			if (wholeData[i].cosno == cosno) {
 				$('.modal-title').text(wholeData[i].cosname);
-				$('#cos_category').text(wholeData[i].category);
-				$('#cos_company').text(wholeData[i].company);
-				$('#cos_ingredient').text(wholeData[i].ingredient);
+				$('#cos_category').text("용도 : " + wholeData[i].category);
+				$('#cos_company').text("브랜드 : " + wholeData[i].company);
+				$('#cos_ingredient').text("성분 : " + wholeData[i].ingredient + ", ");
 				$("#myModal").modal();
 			}
 		}
@@ -467,7 +467,7 @@ th {
 
 </head>
 <body id="page-top" class="index">
-	<!-- 맨위 로그인 밑 게시판 창 -->
+	<!-- 맨위 바-->
 	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix-top">
         <div class="container">
 <!--             Brand and toggle get grouped for better mobile display -->
@@ -538,26 +538,42 @@ th {
             </div>
         </div>
    </header>
-		<!-- 검색 -->
-		<div class="row">
-			<div class="col-md-2">
-				<select class="form-control" id="sel1">
-					<option>브랜드</option>
-					<!-- <option>용도</option> -->
-					<!--  <option>성분</option>-->
-					<option>제품명</option>
-				</select>
+   
+   <!-- 검색 -->
+   <section id="search">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">CoCom Search</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="row">
+					<div class="col-md-2">
+						<select class="form-control" id="sel1">
+							<option>브랜드</option>
+							<!-- <option>용도</option> -->
+							<!--  <option>성분</option>-->
+							<option>제품명</option>
+						</select>
+					</div>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="searchbar">
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-success btn-block"
+							onclick="search()" id="search" style="height: 34px;">검색</button>
+					</div>
+				</div>    
+        	</div>
+        	<!-- 검색 결과물 -->
+			<div class="container">
+				<div id="chbox"> </div>
+				<div id="con"></div>
 			</div>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="searchbar">
-			</div>
-			<div class="col-md-2">
-				<button type="button" class="btn btn-success btn-block"
-					onclick="search()" id="search" style="height: 34px;">검색</button>
-			</div>
-		</div>
-    
-    
+    	</div>
+    </section>
 
 <!-- 검색 -->
 <!-- 	<div class="row"> -->
@@ -578,23 +594,11 @@ th {
 <!-- 		</div> -->
 <!-- 	</div> -->
 
-	<!-- 검색 결과물 -->
-	<div class="container">
-<!-- 	<div id="ingbox"> -->
-<!-- 		<ul> -->
-<!-- 			<li><input type="checkbox" value="건성" id="dry">건성</li> -->
-<!-- 			<li><input type="checkbox" value="지성" id="oil">지성</li> -->
-<!-- 			<li><input type="checkbox" value="민감성" id="senciti">민감성</li> -->
-<!-- 		</ul> -->
-<!-- 	</div> -->
 
-		<div id="chbox"> </div>
-		<div id="con"></div>
-	</div>
 	<!--  Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
+<!-- 	<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;"> -->
+	<div class="modal fade" id="myModal" role="dialog" >
 		<div class="modal-dialog">
-
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -602,9 +606,9 @@ th {
 					<h4 class="modal-title">Modal Header</h4>
 				</div>
 				<div class="modal-body">
-					<div id="cos_category"></div>
-					<div id="cos_company">브랜드 :</div>
-					<div id="cos_ingredient">성분 :</div>
+					<div id="cos_category">용도 : </div>
+					<div id="cos_company">브랜드 : </div>
+					<div id="cos_ingredient">성분 : </div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -891,7 +895,5 @@ th {
 			}
 		}
 	</script>
-
-
 </body>
 </html>

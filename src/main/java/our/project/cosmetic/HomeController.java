@@ -61,7 +61,7 @@ public class HomeController {
 			return "cocomlogin";
 		}else{
 			model.addAttribute("signupVO", cosmeticserviceimpl.getSingUpVO(mid, mpw));
-			return "cocommain";
+			return "redirect:/";
 		}
 	
 	}

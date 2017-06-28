@@ -555,15 +555,23 @@ aside.clients img {
 }
 section#contact {
   background-color: #222222;
-  background-image: url('../img/map-image.png');
-  background-position: center;
+/*   background-image: url('../img/lipstick-1014002_960_720.jpg'); */
+  background-position: center ;
   background-repeat: no-repeat;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 }
 section#contact .section-heading {
   color: white;
 }
 section#contact .form-group {
+  color: white;
   margin-bottom: 25px;
+}
+section#contact .form-group select{
+	color: black;
 }
 section#contact .form-group input,
 section#contact .form-group textarea {
@@ -653,6 +661,7 @@ ul.social-buttons li a:active {
 .btn:active:focus {
   outline: none;
 }
+/*모델시리즈 */ 
 .portfolio-modal .modal-dialog {
   margin: 0;
   height: 100%;
@@ -675,20 +684,20 @@ ul.social-buttons li a:active {
 .portfolio-modal .modal-content p {
   margin-bottom: 30px;
 }
-.portfolio-modal .modal-content p.item-intro {
+.modal-content p.item-intro {
   margin: 20px 0 30px;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 16px;
 }
-.portfolio-modal .modal-content ul.list-inline {
+.modal-content ul.list-inline {
   margin-bottom: 30px;
   margin-top: 0;
 }
-.portfolio-modal .modal-content img {
+.modal-content img {
   margin-bottom: 30px;
 }
-.portfolio-modal .close-modal {
+.close-modal {
   position: absolute;
   width: 75px;
   height: 75px;
@@ -697,10 +706,10 @@ ul.social-buttons li a:active {
   right: 25px;
   cursor: pointer;
 }
-.portfolio-modal .close-modal:hover {
+.close-modal:hover {
   opacity: 0.3;
 }
-.portfolio-modal .close-modal .lr {
+.close-modal .lr {
   height: 75px;
   width: 1px;
   margin-left: 35px;
@@ -712,7 +721,7 @@ ul.social-buttons li a:active {
   /* Safari and Chrome */
   z-index: 1051;
 }
-.portfolio-modal .close-modal .lr .rl {
+.close-modal .lr .rl {
   height: 75px;
   width: 1px;
   background-color: #222222;
@@ -723,10 +732,11 @@ ul.social-buttons li a:active {
   /* Safari and Chrome */
   z-index: 1052;
 }
-.portfolio-modal .modal-backdrop {
+.modal-backdrop {
   opacity: 0;
   display: none;
 }
+/*모델시리즈  끝*/
 ::-moz-selection {
   text-shadow: none;
   background: #fed136;
