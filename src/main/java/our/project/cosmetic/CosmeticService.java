@@ -7,7 +7,7 @@ import our.project.cosmetic.BoardVO;
 
 public interface CosmeticService {
 
-	public void insertSignUp(SignUpVO sv);
+	public int insertSignUp(SignUpVO sv);
 	public int checkLogin(SignUpVO sv);
 	public SignUpVO getSingUpVO(String mid,String mpw);
 	public SignUpVO getSingUpVO(String mid);

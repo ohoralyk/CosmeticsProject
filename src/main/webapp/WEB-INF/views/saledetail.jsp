@@ -109,15 +109,15 @@
                       </tr>
                       <tr>
                       	<td>제품사진:</td>
-                      	<td><img src= "resources/images/${sale.simage}" width="250px"></td>
+                      	<td><img src= "/image/${sale.pimage}" width="500px"></td>
                       </tr>
                     </tbody>
                   </table>
                   <a href="sale.cosmetic" class="btn btn-primary">게시판으로 돌아가기</a>
-                  <%-- <c:if test="${sessionScope.signupVO.mid != null}">
-                      <a href="check.cosmetic?seq=${board.bseq}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                      <a href="delete.cosmetic?seq=${board.bseq}" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                  </c:if> --%>
+                  <c:if test="${sessionScope.signupVO.mid != null}">
+                      <a href="checkSale.cosmetic?seq=${sale.sseq}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                      <a href="deletesale.cosmetic?seq=${sale.sseq}" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                  </c:if>
                 </div>
               </div>
             </div>

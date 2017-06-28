@@ -13,8 +13,8 @@ public class CosmeticServiceImpl implements CosmeticService{
 	CosmeticsDAO<?> dao;
 
 	@Override
-	public void insertSignUp(SignUpVO sv) {
-		dao.insertSignup(sv);
+	public int insertSignUp(SignUpVO sv) {
+		return dao.insertSignup(sv);
 	}
 
 	@Override

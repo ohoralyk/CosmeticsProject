@@ -10,26 +10,37 @@
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.10.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- 물리적 경로 경로명 설정 -->
+	<resources mapping="/image/**" location="/image/"/>
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	
-	<!-- img save -->
-	<resources mapping="/saleboard/**" location="/saleboard/"/>
+
+
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+        <beans:property name="contentType" value="text/html; charset=UTF-8"/>
+
 	</beans:bean>
 	
 	<context:component-scan base-package="our.project.cosmetic" />
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="uploadTempDir" ref="uploadDirResource" />
+		<beans:property name="defaultEncoding" value="UTF-8"/>
+	</beans:bean>
 	
+	<!-- 물리적 경로 -->
+	<beans:bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<beans:constructor-arg>
+			<beans:value>C:\\img</beans:value>
+		</beans:constructor-arg>
 	</beans:bean>
 	
 </beans:beans>

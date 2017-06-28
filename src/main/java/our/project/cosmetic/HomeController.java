@@ -79,10 +79,21 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "signup.cosmetic" , method=RequestMethod.POST)
-	public String insertSignUp(SignUpVO sv){
+	public ModelAndView insertSignUp(Model model, SignUpVO sv){
 		System.out.println(sv);
-		cosmeticserviceimpl.insertSignUp(sv);
-		return "redirect:/";
+		
+		int rtn = cosmeticservice.insertSignUp(sv);
+		
+		if(rtn == 1) {
+			mav.setViewName("cocommain");
+			
+		} else {
+			model.addAttribute("msg", "이미 동일한 ID가 등록되어있습니다.");
+			
+			mav.setViewName("cocom_signup");
+		}
+		
+		return mav;
 	}
 	
 	@RequestMapping("search.cosmetic")
@@ -102,7 +113,7 @@ public class HomeController {
 		int boardcount = cosmeticserviceimpl.countBoard();
 		mav.addObject("boardList", list);
 		mav.addObject("totcount", list.size());
-		mav.addObject("boardcount", boardcount);
+		mav.addObject("boarTdcount", boardcount);
 		mav.setViewName("cocomboard");
 		return mav;
 	}
@@ -236,7 +247,7 @@ public class HomeController {
 
 				// Creating the directory to store file
 				//String rootPath = System.getProperty("catalina.home");
-				File dir = new File("C:\\project\\CosmeticsProject\\src\\main\\webapp\\resources\\images\\saleboard"); //이미 생성되어있음.
+				File dir = new File("C:\\img"); //이미 생성되어있음.
 
 				// 업로드파일 저장
 				//File serverFile = new File(dir.getAbsolutePath());
@@ -302,7 +313,7 @@ public class HomeController {
 
 				// Creating the directory to store file
 				//String rootPath = System.getProperty("catalina.home");
-				File dir = new File("C:\\project\\CosmeticsProject\\src\\main\\webapp\\resources\\images\\saleboard"); //이미 생성되어있음.
+				File dir = new File("C:\\img"); //이미 생성되어있음.
 
 				// 업로드파일 저장
 				//File serverFile = new File(dir.getAbsolutePath());

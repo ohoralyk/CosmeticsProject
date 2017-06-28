@@ -23,8 +23,20 @@ public class CosmeticsDAO<seq> {
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
-	public void insertSignup(SignUpVO sv){
-		session.insert("signup.insertSignup", sv);
+public int insertSignup(SignUpVO sv){
+		
+		String mid = session.selectOne("signup.checkId", sv.getMid());
+		
+		int rtn = 0; //가입 오류가 있을 경우
+		
+		if(mid == null || mid.equals("")) {
+			session.insert("signup.insertSignup", sv);
+			rtn = 1; //정상 가입됨.
+			
+		}
+		
+		return rtn;
+		
 	}
 	
 	public int checkLogin(SignUpVO sv){

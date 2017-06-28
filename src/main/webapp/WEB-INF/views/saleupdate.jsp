@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     제품사진:
-                    <img src= "/img/${sale.pimage}" width="500px">
+                    <img src= "/image/${sale.pimage}" width="500px">
                 </div>
                 <div class="form-group">
                 수정할 사진 :

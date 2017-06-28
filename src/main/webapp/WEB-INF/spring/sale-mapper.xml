@@ -10,7 +10,9 @@
    	</select>
 	
 	<insert id="insertSale" parameterType="salevo">
-	 insert into saleboard values (sale_seq.nextval, #{stitle}, #{scontents}, #{swriter}, sysdate, #{spassword}, 0, #{simage})<!-- default -->
+	 insert into saleboard
+	   (SSEQ, stitle, scontents, swriter, STIME, spassword, SVIEWCOUNT, simage, pimage) values 
+	   (sale_seq.nextval, #{stitle}, #{scontents}, #{swriter}, sysdate, #{spassword}, 0, #{simage}, #{pimage})<!-- default -->
 	</insert>
 	
 	<select id="count" resultType="int">
@@ -19,7 +21,7 @@
    
    <select id="oneSale" parameterType="salevo" resultType="salevo">
       select sseq, stitle, scontents, swriter, to_char(stime, 'yy-mm-dd') stime, 
-      spassword, sviewcount, simage from saleboard
+      spassword, sviewcount, simage, pimage from saleboard
       where sseq=#{sseq}
    </select>
    
@@ -34,8 +36,8 @@
    </update>
    
    <select id="pageSale" parameterType="our.project.cosmetic.PageVO" resultType="salevo">
-   		select sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage
-		from (select rownum r, sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage
+   		select sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage, pimage
+		from (select rownum r, sseq, stitle, scontents, swriter, stime, spassword, sviewcount, simage, pimage
 		from (select * from saleboard order by stime desc))
 		where r between #{pageNum} and #{recordPerPage}
    </select>
@@ -43,6 +45,10 @@
 	<update id="updateSale" parameterType="our.project.cosmetic.SaleVO">
 		update saleboard set stitle = #{stitle}, scontents = #{scontents}, simage = #{simage}, pimage = #{pimage} where sseq = #{sseq}
 	</update>
+
+	<update id="updateSaleNoimage" parameterType="our.project.cosmetic.SaleVO">
+			update saleboard set stitle = #{stitle}, scontents = #{scontents} where sseq = #{sseq}
+		</update>
 
 	<delete id="deleteSale" parameterType="int">
 		delete from saleboard
