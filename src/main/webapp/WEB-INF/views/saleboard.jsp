@@ -8,6 +8,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 <style type="text/css">
 @media only screen and (max-width: 800px) {
     
@@ -65,6 +66,59 @@
 </style>
 </head>
 <body>
+
+<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top affix-top">
+        <div class="container">
+<!--             Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>Menu<i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/cosmetic/">CoCom</a>
+            </div>
+			<!--  Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                	<c:if test="${sessionScope.signupVO.mid == null}">
+	                    <li class="hidden active">
+	                        <a href="/cosmetic/"></a>
+	                    </li>
+	                    <li class="">
+	                        <a href="signup.cosmetic">Sign Up</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="login.cosmetic">Login</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="board.cosmetic">자유게시판</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="sale.cosmetic">중고게시판</a>
+	                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.signupVO.mid != null}">
+	                     <li class="hidden active">
+	                        <a href="/cosmetic/"></a>
+	                    </li>
+	                    <li class="">
+	                    	<a class="page-scroll">${signupVO.mid } 님 어서오세요.</a>
+	                    <li class="">
+	                        <a class="page-scroll" href="logout.cosmetic">LogOut</a>
+	                    </li>
+	                    <li class="">
+	                        <a class="page-scroll" href="board.cosmetic">자유게시판</a>
+	                    </li>
+	                    <li class="">
+	                        <a class="page-scroll" href="sale.cosmetic">중고게시판</a>
+	                    </li>
+					</c:if>
+                </ul>
+            </div>
+<!--             /.navbar-collapse -->
+        </div>
+<!--         /.container-fluid -->
+    </nav>
+
 <% int count = (Integer)request.getAttribute("totcount"); 
 %>
 <br>
@@ -79,10 +133,7 @@
        <br>
     </div>
     <div id="no-more-tables">
-        <c:if test="${sessionScope.signupVO.mid != null}">
-			<input type=button id="writebutton" value="글쓰기"><br>
-		</c:if>
-    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+    <table class="table table-striped" width="300">
         <thead class="cf">
         	<tr>
         		<th>번호</th>
@@ -102,7 +153,9 @@
 				</c:forEach>	
         		</tbody>
         	</table>
-        	<div id="paging">
+        	<div id="paging" class="text-center">
+        		<ui class="pagination">
+        		<li>
 			<% 
 			int salecount = (Integer)request.getAttribute("salecount"); 
 			int recordPerPage = 0;
@@ -125,13 +178,18 @@
 				("<a href='sale.cosmetic?pageNum=" + i + "'> " +i +"</a>");
 			}
 			%>
-			<a href="/cosmetic/">메인화면으로</a>
+				</li>
+				</ui>
 			</div>
+	        <c:if test="${sessionScope.signupVO.mid != null}">
+				<input type=button id="writebutton" value="글쓰기">
+			</c:if>
+			<a href="/cosmetic/">메인화면으로</a>
         </div>
     </div>
 </div>
 
-<script src="resources/jquery-3.1.1.min.js"></script>
+<script src="resources/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#writebutton").on('click', function(){

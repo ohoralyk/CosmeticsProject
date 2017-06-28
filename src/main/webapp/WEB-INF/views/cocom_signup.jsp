@@ -3,10 +3,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CoCom 회원가입</title>
 <script src="resources/jquery-3.1.1.min.js"></script>
+
+<!-- 제이쿼리 불러오기  -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<!-- 따온 부트스트랩 자료 넣기 -->
+<script src="resources/js/agency.js"></script>
+<!-- <script src="resources/js/agency.min.js"></script> -->
+<script src="resources/js/contact_me.js"></script>
+<script src="resources/js/jqBootstrapValidation.js"></script>
+
+<!-- 부트스트랩 코어 -->
+<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 커스텀 폰트 -->
+<link href="resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+
+<!-- theme css -->
+<link href="resources/css/agency.min.css" rel="stylesheet">
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -17,6 +40,7 @@
 	<div class="row">
 		<h2>CoCom 회원가입</h2>
 	</div>
+	<div>${msg}</div>
     <form id="defaultForm" method="post" class="form-horizontal" action="signup.cosmetic">
                         <div class="form-group">
                             <label class="col-lg-3 control-label" >아이디</label>
@@ -31,12 +55,13 @@
                                 <input type="password" class="form-control" name="mpw" />
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-lg-3 control-label">성별</label>
                             <div class="col-lg-5">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="mgender" value="m" />남
+                                        <input type="radio" name="mgender" value="m" checked/>남
                                     </label>
                                 </div>
                                 <div class="radio">
@@ -55,47 +80,45 @@
 									<option value="t3">지성</option>
 									<option value="t4">중성</option>
 									<option value="t5">민감성</option>
-								</select>
+								</select>								
                             </div>
                        	</div>
+
+                        
                         <div class="form-group">
                             <label class="col-lg-3 control-label">나이</label>
                             <div class="col-lg-5">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="1" />10대
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="2" />20대
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="3" />30대
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="4" />40대
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="5" />50대
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mage" value="6" />60대이상
-                                    </label>
-                                </div>
+                                
+                                <select name=mage>
+									<option value="1" selected="selected">10대</option>
+									<option value="2">20대</option>
+									<option value="3">30대</option>
+									<option value="4">40대</option>
+									<option value="5">50대</option>
+									<option value="6">60대 이상</option>
+								</select>
+			
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">피부질병</label>
                             <div class="col-lg-5">
+                            
+                            <!-- 
+                           <select name=mdisease>
+									<option value="s1">아토피</option>
+									<option value="s2">알레르기</option>
+									<option value="s3">화상</option>
+									<option value="s4">여드름</option>
+									<option value="s5">습진</option>
+									<option value="s6">홍조</option>
+									<option value="s7">색소침착</option>
+									<option value="s8">피지과다분비</option>
+									<option value="s9">기타질병</option>
+									<option value="s10" selected="selected">질병없음</option>
+								</select>
+                             -->
+
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="mdisease" value="s1">아토피
@@ -143,15 +166,16 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                       <input type="checkbox" name="mdisease" value="s10">질병없음
+                                       <input type="checkbox" name="mdisease" value="s10" checked="checked">질병없음
                                     </label>
+									
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-9 col-lg-offset-3">
-                                <input type="submit" class="btn btn-primary" value="완료"/>
-								<input type="button" class="btn btn-primary" id="cancel" value="취소">
+                                <input type="submit" class="btn btn-primary" value="Sign Up"/>
+								<input type="button" class="btn btn-primary" id="cancel" value="Cancle">
                             </div>
                         </div>
                     </form>
