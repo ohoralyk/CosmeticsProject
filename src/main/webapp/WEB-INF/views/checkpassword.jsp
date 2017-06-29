@@ -21,7 +21,7 @@
 $('#calcel_btn').on('click',function(){
 	location.href="detail.cosmetic";
 });
-		
+	<!--치킨스튜 -->	
 	</script>
 </body>
 </html>
