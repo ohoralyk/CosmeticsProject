@@ -130,7 +130,7 @@
     <div class="row">
     <div class="col-md-12">
        <h1 class="text-center">
-           CoCom Community
+           CoCom 게시판
        </h1>
        <br>
        <br>

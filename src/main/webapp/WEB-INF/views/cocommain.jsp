@@ -533,8 +533,8 @@ th {
 <!-- 					<img class="center-block" alt="이미지가 없습니다." src="resources/images/Cocom.jpg" class="logo"> -->
 <!-- 				</div> -->
 				<div class="intro-lead-in">Co Com</div>
-                <div class="intro-heading">Cosmetics Combination</div>
-				<a href="#search" class="page-scroll btn btn-xl">Cosmetics Search</a>
+                <div class="intro-heading">Cosmetics<br> Combination</div>
+				<a href="#search" class="page-scroll btn btn-xl">Cosmetics 검색</a>
             </div>
         </div>
    </header>
