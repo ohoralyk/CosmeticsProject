@@ -1,0 +1,97 @@
+
+
+create table member(
+mid VARCHAR2(50) CONSTRAINT mid_pk PRIMARY KEY,
+mpw VARCHAR2(100) CONSTRAINT mpw_nn NOT NULL,
+mgender VARCHAR2(10) CONSTRAINT mgender_ck CHECK (mgender in('m', 'f')),
+mage VARCHAR2(10) CONSTRAINT mage_ck CHECK (mage in('1','2','3','4','5','6')),
+mtype VARCHAR2(10) CONSTRAINT mtype_ck CHECK (mtype in('t1','t2','t3','t4','t5')),
+mdisease VARCHAR2(10) CONSTRAINT mdisease CHECK (mdisease in('s1','s2','s3','s4','s5','s6','s7','s8','s9','s10'))
+);
+
+insert into member(mid, mpw, mgender, mage, mtype, mdisease)
+values('no1', '1234', 'm', '1', 't1', 's1');
+
+insert into member(mid, mpw, mgender, mage, mtype, mdisease)
+values('no2', '5678', 'f', '2', 't2', 's2');
+
+
+create table cocomboard
+(bseq number(5) CONSTRAINT boardnum_pk primary key,
+btitle varchar2(100) CONSTRAINT boardtitle_nn not null,
+bcontents varchar2(4000) CONSTRAINT boardcontents_nn not null,
+bwriter varchar2(50) CONSTRAINT boardwriter_fk references member(mid),
+btime DATE default sysdate,
+bpassword  number(5) constraint boardpw_nn not null,
+viewcount number(10) default 0
+);
+
+create sequence cocomboard_seq
+start with 1
+increment by 1
+maxvalue 100000;
+
+insert into cocomboard(bseq, btitle, bcontents, bwriter, btime, bpassword, viewcount)
+values(cocomboard_seq.nextval, '게시판테스트', '게시판테스트중입니다', 'no1', default, '0000', default);
+
+insert into cocomboard(bseq, btitle, bcontents, bwriter, btime, bpassword, viewcount)
+values(cocomboard_seq.nextval, '게시판테스트2', '게시판테스트중입니다2', 'no1', default, '1010', default);
+
+
+create sequence MY_SEQ
+minvalue 1
+maxvalue 999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+
+BSEQ	NUMBER(5,0)	No
+RNUM	NUMBER(3,0)	No
+RCONTENTS	VARCHAR2(50 BYTE)	No
+RID	VARCHAR2(20 BYTE)	No
+RDATE	DATE	No
+
+
+create table reply
+(bseq number(5) constraint boardseq_fk references cocomboard(bseq),
+rnum number(3) constraint replynum_pk primary key,
+rcontents varchar2(4000) constraint replycontents_nn not null,
+rid varchar2(50) constraint replyid_fk references member(mid),
+rdate DATE default sysdate
+);
+
+create sequence reply_seq
+start with 1
+increment by 1
+maxvalue 100000;
+
+
+alter sequence seq1 nocache
+
+
+--------------------------
+create table saleboard
+(sseq number(5) CONSTRAINT salenum_pk primary key,
+stitle varchar2(100) CONSTRAINT saletitle_nn not null,
+scontents varchar2(4000) CONSTRAINT salecontents_nn not null,
+swriter varchar2(50) CONSTRAINT salewriter_fk references member(mid),
+stime DATE default sysdate,
+spassword  number(5) constraint salepw_nn not null,
+sviewcount number(10) default 0,
+simage varchar2(100));
+
+
+create sequence sale_seq
+start with 1
+increment by 1
+maxvalue 100000;
+
+alter sequence sale_seq nocache
+
+
+insert into saleboard values(sale_seq.nextval, '스킨팝니다', '스킨팔아요오', 'test', sysdate, '1111', 0, 'skin.jpg');
+insert into saleboard values(sale_seq.nextval, '크림을 팔아요', '크림사세용', 'no1', sysdate, '1111', 0, 'cream.jpg');
+insert into saleboard values(sale_seq.nextval, '쿠션팩트 삽니다', '쿠션팩트뭐가좋아요?', 'onlyyou', sysdate, '1111', 0, 'cushion.jpg');
+insert into saleboard values(sale_seq.nextval, '로션싸게팔아요', '로션판매중', 'test', sysdate, '1111', 0, 'lotion.jpg');
+insert into saleboard values(sale_seq.nextval, '틴트싸게파실분', '틴트구매하려구요', 'no1', sysdate, '1111', 0, 'tint.jpg');
