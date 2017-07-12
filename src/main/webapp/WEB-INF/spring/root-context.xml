@@ -34,12 +34,24 @@
 	<mongo:mongo-client
 		host="localhost"
 		port="27017">
-	</mongo:mongo-client>
-	
+	</mongo:mongo-client>	
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongo" />
 		<constructor-arg name="databaseName" value="cocom" />
 	</bean>
+	
+<!-- 	<mongo:mongo-client -->
+<!-- 		replica-set="cosmetics-shard-00-00-opawf.mongodb.net:27017,cosmetics-shard-00-01-opawf.mongodb.net:27017,cosmetics-shard-00-02-opawf.mongodb.net:27017" -->
+<!-- 		credentials="ohoralyk:ksk2009##@cocom"> -->
+<!-- 		<mongo:client-options connections-per-host="8" -->
+<!-- 			threads-allowed-to-block-for-connection-multiplier="4" -->
+<!-- 			connect-timeout="1000" max-wait-time="1500" socket-keep-alive="true" ssl="true" -->
+<!-- 			socket-timeout="1500" /> -->
+<!-- 	</mongo:mongo-client> -->
+<!-- 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!-- 		<constructor-arg ref="mongo" /> -->
+<!-- 		<constructor-arg name="databaseName" value="cocom" /> -->
+<!-- 	</bean> -->
 	
 	<context:component-scan base-package="our.project.cosmetic" />	
 	
