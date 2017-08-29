@@ -1,0 +1,4 @@
+﻿mongoimport --host cosmetics-shard-00-00-opawf.mongodb.net:27017 --ssl -u ohoralyk -p ohora5040## --authenticationDatabase admin --db cocom --collection ingredient --drop --file c:\mongodb\cocomingredient.json
+
+mongodb atla 접속
+mongo "mongodb://cosmetics-shard-00-00-opawf.mongodb.net:27017,cosmetics-shard-00-01-opawf.mongodb.net:27017,cosmetics-shard-00-02-opawf.mongodb.net:27017/test?replicaSet=cosmetics-shard-0" --authenticationDatabase admin --ssl --username ohoralyk --password ohora5040##

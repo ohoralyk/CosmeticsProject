@@ -1,0 +1,32 @@
+{mid:"admin",
+ mpassword: "admin",
+ admin: "1"
+}
+{mid: "abcd",
+ mpassword: "12345678",
+ msex: "1",
+ mage: "2",
+ mskintype: "t3",
+ mdisease: "s1"
+}
+{mid: "tesan",
+ mpassword: "09876543",
+ msex: "1",
+ mage: "3",
+ mskintype: "t1",
+ mdisease: "s2"
+}
+{mid: "qwer",
+ mpassword: "a1234567",
+ msex: "2",
+ mage: "1",
+ mskintype: "t4",
+ mdisease: "s6"
+}
+{mid: "ohoho",
+ mpassword: "oho45678",
+ msex: "2",
+ mage: "2",
+ mskintype: "t5",
+ mdisease: "s10"
+}

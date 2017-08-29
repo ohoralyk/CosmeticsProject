@@ -1,0 +1,1 @@
+db.getCollection('cosmeics').find({cosno: 50})

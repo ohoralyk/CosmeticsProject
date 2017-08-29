@@ -1,0 +1,67 @@
+$ git clone https://github.com/mongodb/mongo-hadoop.git
+$ git checkout release-1.0
+
+hadoopRelease in ThisBuild := "cdh3"
+
+
+$ ./sbt package
+
+$ ./sbt package
+
+$ wget --no-check-certificate https://github.com/downloads/mongodb/mongo-java-driver/mongo-2.7.3.jar
+$ cp mongo-2.7.3.jar /usr/lib/hadoop/lib/
+$ cp core/target/mongo-hadoop-core_cdh3u3-1.0.0.jar /usr/lib/hadoop/lib/
+
+
+$ ./sbt load-sample-data
+
+
+$ mongo
+MongoDB shell version: 2.0.5
+connecting to: test
+> show dbs
+mongo_hadoop    0.453125GB
+> use mongo_hadoop
+switched to db mongo_hadoop
+> show collections
+system.indexes
+ufo_sightings.in
+yield_historical.in
+
+
+$ emacs examples/treasury_yield/src/main/resources/mongo-treasury_yield.xml
+
+$ ./sbt treasury-example/package
+
+$ hadoop jar examples/treasury_yield/target/treasury-example_cdh3u3-1.0.0.jar com.mongodb.hadoop.examples.treasury.TreasuryYieldXMLConfig
+
+
+$ mongo
+MongoDB shell version: 2.0.5
+connecting to: test
+> use mongo_hadoop
+switched to db mongo_hadoop
+> db.yield_historical.out.find()
+{ "_id" : 1990, "value" : 8.552400000000002 }
+{ "_id" : 1991, "value" : 7.8623600000000025 }
+{ "_id" : 1992, "value" : 7.008844621513946 }
+{ "_id" : 1993, "value" : 5.866279999999999 }
+{ "_id" : 1994, "value" : 7.085180722891565 }
+{ "_id" : 1995, "value" : 6.573920000000002 }
+{ "_id" : 1996, "value" : 6.443531746031742 }
+{ "_id" : 1997, "value" : 6.353959999999992 }
+{ "_id" : 1998, "value" : 5.262879999999994 }
+{ "_id" : 1999, "value" : 5.646135458167332 }
+{ "_id" : 2000, "value" : 6.030278884462145 }
+{ "_id" : 2001, "value" : 5.02068548387097 }
+{ "_id" : 2002, "value" : 4.61308 }
+{ "_id" : 2003, "value" : 4.013879999999999 }
+{ "_id" : 2004, "value" : 4.271320000000004 }
+{ "_id" : 2005, "value" : 4.288880000000001 }
+{ "_id" : 2006, "value" : 4.7949999999999955 }
+{ "_id" : 2007, "value" : 4.634661354581674 }
+{ "_id" : 2008, "value" : 3.6642629482071714 }
+{ "_id" : 2009, "value" : 3.2641200000000037 }
+has more
+
+
